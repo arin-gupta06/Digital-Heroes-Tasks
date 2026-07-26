@@ -28,9 +28,11 @@ export const loginAdmin = async (req, res) => {
                 expiresIn: process.env.JWT_EXPIRES_IN_DAYS,
             }
         )
+        const isLocalhost = ["localhost", "127.0.0.1"].includes(req.hostname);
+
         res.cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
+            secure: process.env.NODE_ENV === "production" && !isLocalhost,
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60* 1000,
         });
@@ -51,9 +53,11 @@ export const loginAdmin = async (req, res) => {
 }
 
 export const logoutAdmin = async(req, res) => {
+    const isLocalhost = ["localhost", "127.0.0.1"].includes(req.hostname);
+
     res.clearCookie("token", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production" && !isLocalhost,
         sameSite: "strict",
     });
 
