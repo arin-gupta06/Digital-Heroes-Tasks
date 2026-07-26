@@ -2,6 +2,7 @@ import Lead from "../models/lead.models.js"
 
 
 export const createLead = async (req, res) => {
+     console.log("🔥 createLead reached");
     try {
         const {name, email, budgetRange, message} = req.body;
 

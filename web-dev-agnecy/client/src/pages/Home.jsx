@@ -1,8 +1,9 @@
 import heroImg from "../assets/hero.png";
 import {useState} from "react";
 import { createLead } from "../services/lead.services";
-
+import {useNavigate} from "react-router-dom";
 function Home() {
+  const navigate = useNavigate();
   const initialFormData = {
   name: "",
   email: "",
@@ -49,6 +50,9 @@ function Home() {
 
         <button onClick = {scrollFeature} className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
           Contact
+        </button>
+        <button onClick = {() => navigate("/login")} className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+          Admin Login
         </button>
       </nav>
 

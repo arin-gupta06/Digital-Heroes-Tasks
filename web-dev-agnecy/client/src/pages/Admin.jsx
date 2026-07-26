@@ -1,23 +1,38 @@
 import { useEffect, useState } from "react";
 import { getLeads } from "../services/lead.services";
-
+import {useNavigate} from "react-router-dom"
 function Admin() {
+  const navigate = useNavigate();
     const [leads, setLeads] = useState([]);
     const [loading, setLoading] = useState(true);
 
-        const fetchLeads = async () => {
-        try {
-            const data = await getLeads();
+    useEffect(() => {
+      let isMounted = true;
+
+      getLeads()
+        .then((data) => {
+          if (isMounted) {
             setLeads(data.data);
-            } catch (error) {
-                console.error(error);
-            
-            }
-            finally{
-              setLoading(false);
-            }
-        }  
-    useEffect(() => {fetchLeads()}, [])
+          }
+        })
+        .catch((error) => {
+          if (error.message === "Unauthorized") {
+            navigate("/login");
+            return;
+          }
+
+          console.error(error);
+        })
+        .finally(() => {
+          if (isMounted) {
+            setLoading(false);
+          }
+        });
+
+      return () => {
+        isMounted = false;
+      };
+    }, [navigate])
 
     if (loading) {
         return (
@@ -44,6 +59,9 @@ function Admin() {
         <div className="bg-blue-600 text-white px-5 py-3 rounded-lg">
           Total Leads: {leads.length}
         </div>
+        <button onClick = {() => {navigate("/")}} className="bg-blue-600 text-white px-5 py-3 rounded-lg">
+          Back
+        </button>
       </header>
 
       {/* Table */}
