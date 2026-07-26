@@ -1,4 +1,15 @@
 {
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix web-dev-agnecy/client ci && npm --prefix web-dev-agnecy/client run build",
+    "start": "npm --prefix web-dev-agnecy/server start",
+    "server:build": "npm --prefix web-dev-agnecy/server ci",
+    "server:start": "npm --prefix web-dev-agnecy/server start",
+    "client:build": "npm --prefix web-dev-agnecy/client ci && npm --prefix web-dev-agnecy/client run build"
+  },
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "react-router": "^8.3.0",

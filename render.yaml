@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: digital-heroes-api
+    env: node
+    rootDir: web-dev-agnecy/server
+    buildCommand: npm ci
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN_DAYS
+        value: 7d
+
+  - type: static
+    name: digital-heroes-client
+    rootDir: web-dev-agnecy/client
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: VITE_API_URL
+        sync: false
