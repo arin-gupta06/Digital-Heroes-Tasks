@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-     "build": "npm --prefix web-dev-agnecy/client ci && npm --prefix web-dev-agnecy/client run build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
