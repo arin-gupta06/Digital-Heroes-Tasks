@@ -6,10 +6,9 @@ import AdminRouter from "./routes/admin.leads.routes.js"
 const app = express();
 
 const allowedOrigins = [
-    process.env.CLIENT_URL,
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    process.env.CLIENT_URL,
+    process.env.CLIENT_API_URL,
 ].filter(Boolean);
 
 app.use(cors({
